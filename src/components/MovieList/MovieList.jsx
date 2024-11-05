@@ -5,9 +5,9 @@ import MovieCard from "./MovieCard";
 import FilterGroup from "../FilterGroup";
 
 const MovieList = ({ type, Title, emoji }) => {
-  const [movies, setMovies] = useState([]); // Initialize as empty array
-  const [loading, setLoading] = useState(true); // For loading state
-  const [error, setError] = useState(null); // For error handling
+  const [movies, setMovies] = useState([]); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
   const [filterMovies, setFilterMovies] = useState([]);
   const [minRating, setMinRating] = useState(0);
   const [sort, setSort] = useState({
