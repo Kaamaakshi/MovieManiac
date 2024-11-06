@@ -16,7 +16,7 @@ const Navbar = () => {
           Top Rated <img src={Star} alt="Star emoji" className="navbar_emoji" />
         </a>
         <a href="#upcoming">
-          Upcoming{" "}
+          Upcoming
           <img src={Party} alt="Part face emoji" className="navbar_emoji" />
         </a>
       </div>

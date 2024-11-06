@@ -29,7 +29,6 @@ const MovieList = ({ type, Title, emoji }) => {
   const fetchMovies = async () => {
     try {
       const response = await fetch(
-        // `https://www.omdbapi.com/?s=${type}&apikey=db15c82c`
         `http://www.omdbapi.com/?s=2024&apikey=86c13ee8`
       );
       const data = await response.json();
