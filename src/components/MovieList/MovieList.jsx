@@ -5,9 +5,9 @@ import MovieCard from "./MovieCard";
 import FilterGroup from "../FilterGroup";
 
 const MovieList = ({ type, Title, emoji }) => {
-  const [movies, setMovies] = useState([]); // Initialize as empty array
-  const [loading, setLoading] = useState(true); // For loading state
-  const [error, setError] = useState(null); // For error handling
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [filterMovies, setFilterMovies] = useState([]);
   const [minRating, setMinRating] = useState(0);
   const [sort, setSort] = useState({
@@ -29,12 +29,12 @@ const MovieList = ({ type, Title, emoji }) => {
   const fetchMovies = async () => {
     try {
       const response = await fetch(
-        `https://www.omdbapi.com/?s=${type}&apikey=db15c82c`
+        // `https://www.omdbapi.com/?s=${type}&apikey=db15c82c`
+        `http://www.omdbapi.com/?s=2024&apikey=86c13ee8`
       );
       const data = await response.json();
 
       if (data.Response === "True") {
-        // Fetch detailed data for each movie to include rating and votes
         const movieDetails = await Promise.all(
           data.Search.map(async (movie) => {
             const detailResponse = await fetch(
@@ -43,20 +43,20 @@ const MovieList = ({ type, Title, emoji }) => {
             const detailData = await detailResponse.json();
             return {
               ...movie,
-              imdbRating: detailData.imdbRating, // Add imdbRating
-              imdbVotes: detailData.imdbVotes, // Add imdbVotes
+              imdbRating: detailData.imdbRating,
+              imdbVotes: detailData.imdbVotes,
             };
           })
         );
         setMovies(movieDetails);
-        setFilterMovies(movieDetails); // Set the movies with the detailed information
+        setFilterMovies(movieDetails);
       } else {
-        setError(data.Error); // Set error if no movies found
+        setError(data.Error);
       }
     } catch (err) {
-      setError("An error occurred while fetching the data."); // Set error on fetch failure
+      setError("An error occurred while fetching the data.");
     } finally {
-      setLoading(false); // Stop loading when done
+      setLoading(false);
     }
   };
 
@@ -125,13 +125,12 @@ const MovieList = ({ type, Title, emoji }) => {
       </header>
 
       <div className="movie_cards">
-        {/* Only call map if movies is an array */}
         {Array.isArray(movies) && movies.length > 0 ? (
           filterMovies.map((movie) => (
             <MovieCard key={movie.imdbID} movie={movie} />
           ))
         ) : (
-          <div>No movies found</div> // Display a message if no movies are available
+          <div>No movies found</div>
         )}
       </div>
     </section>
